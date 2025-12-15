@@ -1,0 +1,143 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@cbe.com",
+      "password": "admin123",
+      "firstName": "Abel",
+      "lastName": "Abesha",
+      "role": ["manager" , "officer"],
+      "token": "mocked-token-admin"
+    },
+    {
+      "id": "2",
+      "email": "officer@cbe.com",
+      "password": "officer123",
+      "firstName": "Sara",
+      "lastName": "Gebre",
+      "role": ["officer"],
+      "token": "mocked-token-officer"
+    }
+  ],
+  "requests": [
+    {
+      "id": "req-3",
+      "requestedBy": "Charlie Brown",
+      "userId": "user-3",
+      "service": "VPN",
+      "serviceId": "svc-4",
+      "department": "IT",
+      "purpose": "Remote work setup",
+      "status": "abel",
+      "requestedDate": "2025-08-05T10:00:00Z",
+      "priority": "Medium",
+      "assignedTo": "John",
+      "rejectionReason": "",
+      "amendmentNote": "60"
+    },
+    {
+      "id": "req-4",
+      "requestedBy": "Diana Prince",
+      "userId": "user-4",
+      "service": "DataCenter_Line",
+      "serviceId": "svc-7",
+      "department": "R&D",
+      "purpose": "Increase data center bandwidth",
+      "status": "rejected",
+      "requestedDate": "2025-08-08T16:20:00Z",
+      "priority": "High",
+      "assignedTo": "Bob",
+      "rejectionReason": "no reason",
+      "amendmentNote": ""
+    },
+    {
+      "id": "req-5",
+      "requestedBy": "Ethan Hunt",
+      "userId": "user-5",
+      "service": "Internet_3G4G",
+      "serviceId": "svc-1",
+      "department": "Operations",
+      "purpose": "",
+      "status": "pending",
+      "requestedDate": "2025-08-12T11:10:00Z",
+      "priority": "Low",
+      "assignedTo": "Bob",
+      "rejectionReason": "",
+      "amendmentNote": ""
+    },
+    {
+      "id": "0001",
+      "requestedBy": "abebe",
+      "service": "modem",
+      "purpose": "",
+      "status": "rejected",
+      "requestedDate": "2025-09-04T11:53:15.799Z",
+      "rejectionReason": "beza\n",
+      "amendmentNote": "",
+      "assignedTo": "Bob"
+    },
+    {
+      "id": "0002",
+      "requestedBy": "abebek",
+      "service": "Backup",
+      "purpose": "",
+      "status": "pending",
+      "requestedDate": "2025-09-04T12:18:47.225Z"
+    }
+  ],
+  "services": [
+    {
+      "id": "svc-1",
+      "serviceType": "Internet_3G4G",
+      "description": "High-speed 3G/4G internet access"
+    },
+    {
+      "id": "svc-2",
+      "serviceType": "Fixed_Data_Line",
+      "description": "Reliable fixed data line for enterprises"
+    },
+    {
+      "id": "svc-3",
+      "serviceType": "VSAT",
+      "description": "Satellite communication services for remote areas"
+    },
+    {
+      "id": "svc-4",
+      "serviceType": "VPN",
+      "description": "Secure Virtual Private Network for remote work"
+    },
+    {
+      "id": "svc-5",
+      "serviceType": "POS_M2M",
+      "description": "Machine-to-machine connectivity for POS terminals"
+    },
+    {
+      "id": "svc-6",
+      "serviceType": "Backup",
+      "description": "Cloud-based backup and disaster recovery solutions"
+    },
+    {
+      "id": "svc-7",
+      "serviceType": "DataCenter_Line",
+      "description": "High-capacity data lines for data centers"
+    }
+  ],
+  "assignees": [
+    {
+      "id": "1",
+      "name": "Alice"
+    },
+    {
+      "id": "2",
+      "name": "Bob"
+    },
+    {
+      "id": "3",
+      "name": "Charlie"
+    },
+    {
+      "id": "4",
+      "name": "John"
+    }
+  ]
+}
