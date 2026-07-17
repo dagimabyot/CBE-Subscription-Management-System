@@ -27,6 +27,7 @@ import SubscriptionManagementAdmin from "./pages/Admin/SubscriptionManagementAdm
 import UserManagement from "./pages/Admin/UserManagement";
 import BillingDashboard from "./pages/Admin/BillingDashboard";
 import PaymentManagement from "./pages/PaymentManagement";
+import SecurityPage from "./pages/SecurityPage";
 import { Toaster } from "sonner";
 import RequestDetailsPage from "./pages/User/dashboard/components/RequestDetailsPage";
 import MyAssignedRequests from "./pages/User/dashboard/MyAssignedRequests";
@@ -74,6 +75,8 @@ function App() {
         <Route path="/requests" element={<MyRequests />} />
         <Route path="/billing" element={<BillsPage />} />
         <Route path="/payments" element={<PaymentManagement />} />
+        <Route path="/notifications" element={<NotificationsPage />} />
+        <Route path="/security" element={<SecurityPage />} />
       </Route>
 
       {/* Legacy Dashboard Routes */}
