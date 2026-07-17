@@ -25,6 +25,8 @@ import UserDashboard from "./pages/UserDashboard";
 import SubscriptionManagement from "./pages/SubscriptionManagement";
 import SubscriptionManagementAdmin from "./pages/Admin/SubscriptionManagementAdmin";
 import UserManagement from "./pages/Admin/UserManagement";
+import BillingDashboard from "./pages/Admin/BillingDashboard";
+import PaymentManagement from "./pages/PaymentManagement";
 import { Toaster } from "sonner";
 import RequestDetailsPage from "./pages/User/dashboard/components/RequestDetailsPage";
 import MyAssignedRequests from "./pages/User/dashboard/MyAssignedRequests";
@@ -51,6 +53,7 @@ function App() {
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/users" element={<UserManagement />} />
         <Route path="/admin/subscription-requests" element={<SubscriptionManagementAdmin />} />
+        <Route path="/admin/billing" element={<BillingDashboard />} />
       </Route>
 
       {/* Manager Routes */}
@@ -70,6 +73,7 @@ function App() {
         <Route path="/subscriptions" element={<SubscriptionManagement />} />
         <Route path="/requests" element={<MyRequests />} />
         <Route path="/billing" element={<BillsPage />} />
+        <Route path="/payments" element={<PaymentManagement />} />
       </Route>
 
       {/* Legacy Dashboard Routes */}
