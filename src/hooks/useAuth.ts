@@ -1,11 +1,21 @@
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
-import { loginApi, registerApi } from "@/features/auth/authApi";
+import {
+  loginApi,
+  registerApi,
+  forgotPasswordApi,
+  resetPasswordApi,
+  verifyEmailApi,
+  resendVerificationEmailApi,
+} from "@/features/auth/authApi";
 import { setAuth } from "@/features/auth/authSlice";
 import {
   LoginPayload,
   RegisterPayload,
   UserInfo,
+  ForgotPasswordPayload,
+  ResetPasswordPayload,
+  EmailVerificationPayload,
 } from "@/features/auth/authTypes";
 
 export const useLogin = () => {
@@ -28,4 +38,40 @@ export const useRegister = () => {
       },
     }
   );
+};
+
+export const useForgotPassword = () => {
+  return useMutation<
+    { message: string; resetTokenSent: boolean },
+    Error,
+    ForgotPasswordPayload
+  >({
+    mutationFn: forgotPasswordApi,
+  });
+};
+
+export const useResetPassword = () => {
+  return useMutation<
+    { message: string; success: boolean },
+    Error,
+    ResetPasswordPayload
+  >({
+    mutationFn: resetPasswordApi,
+  });
+};
+
+export const useVerifyEmail = () => {
+  return useMutation<
+    { message: string; emailVerified: boolean },
+    Error,
+    EmailVerificationPayload
+  >({
+    mutationFn: verifyEmailApi,
+  });
+};
+
+export const useResendVerificationEmail = () => {
+  return useMutation<{ message: string; sent: boolean }, Error, string>({
+    mutationFn: (email: string) => resendVerificationEmailApi(email),
+  });
 };

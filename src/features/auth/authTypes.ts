@@ -10,6 +10,10 @@ export interface UserInfo {
   role: string[];
   firstName: string;
   lastName: string;
+  accountStatus?: "active" | "pending_verification" | "suspended";
+  createdDate?: string;
+  lastLogin?: string;
+  emailVerified?: boolean;
 }
 
 export interface LoginPayload {
@@ -36,4 +40,35 @@ export interface RegisterPayload {
 
 export interface RegisterResponse {
   message: string;
+  emailVerificationPending?: boolean;
+}
+
+export interface ForgotPasswordPayload {
+  email: string;
+}
+
+export interface ForgotPasswordResponse {
+  message: string;
+  resetTokenSent: boolean;
+}
+
+export interface ResetPasswordPayload {
+  token: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+export interface ResetPasswordResponse {
+  message: string;
+  success: boolean;
+}
+
+export interface EmailVerificationPayload {
+  email: string;
+  verificationCode: string;
+}
+
+export interface EmailVerificationResponse {
+  message: string;
+  emailVerified: boolean;
 }

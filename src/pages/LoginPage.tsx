@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLogin } from "@/hooks/useAuth";
+import { getRoleBasedRedirectPath } from "@/hooks/usePermissions";
 import logo from "@/assets/cbe-logo.jpg";
 
 interface LoginPageProps {
@@ -32,8 +33,9 @@ const LoginPage = ({ onCreateAccount }: LoginPageProps) => {
     loginMutation.mutate(
       { email: username, password: password },
       {
-        onSuccess: () => {
-          navigate("/dashboard");
+        onSuccess: (data) => {
+          const redirectPath = getRoleBasedRedirectPath(data.user.role);
+          navigate(redirectPath);
         },
         onError: (err: any) => {
           setErrorMessage(err.message || "Login failed. Please try again.");
@@ -157,7 +159,10 @@ const LoginPage = ({ onCreateAccount }: LoginPageProps) => {
 
           {/* Footer Links */}
           <div className="flex justify-between items-center pt-4 border-t border-gray-200">
-            <button className="text-gray-600 hover:text-[#5D0049] text-sm font-medium transition-colors">
+            <button 
+              onClick={() => navigate("/forgot-password")}
+              className="text-gray-600 hover:text-[#5D0049] text-sm font-medium transition-colors"
+            >
               Forgot Password?
             </button>
             <button

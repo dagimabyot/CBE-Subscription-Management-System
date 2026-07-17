@@ -2,6 +2,9 @@
 import { Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
+import VerifyEmailPage from "./pages/VerifyEmailPage";
 import DashboardLayout from "./layouts/DashboardLayout";
 import RequestsPage from "./pages/RequestsPage";
 import BillsPage from "./pages/BillsPage";
@@ -28,9 +31,13 @@ function App() {
 
     
     <Routes>
+      {/* Public Auth Routes */}
       <Route path="/" element={<LoginPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegistrationPage />} />
+      <Route path="/verify-email" element={<VerifyEmailPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
       
 
       {/* Nested inside Dashboard */}<Route element={<RequireAuth allowedRoles={["manager"]} />}>
