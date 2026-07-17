@@ -21,6 +21,8 @@ import MyApprovals from "./pages/User/dashboard/MyApprovals";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import ManagerDashboard from "./pages/Manager/ManagerDashboard";
 import OfficerDashboard from "./pages/Officer/OfficerDashboard";
+import UserDashboard from "./pages/UserDashboard";
+import SubscriptionManagement from "./pages/SubscriptionManagement";
 import { Toaster } from "sonner";
 import RequestDetailsPage from "./pages/User/dashboard/components/RequestDetailsPage";
 import MyAssignedRequests from "./pages/User/dashboard/MyAssignedRequests";
@@ -59,7 +61,11 @@ function App() {
 
       {/* User Routes */}
       <Route element={<RequireAuth allowedRoles={["user"]} />}>
-        <Route path="/user/dashboard" element={<DashboardUser />} />
+        <Route path="/dashboard" element={<UserDashboard />} />
+        <Route path="/user/dashboard" element={<UserDashboard />} />
+        <Route path="/subscriptions" element={<SubscriptionManagement />} />
+        <Route path="/requests" element={<MyRequests />} />
+        <Route path="/billing" element={<BillsPage />} />
       </Route>
 
       {/* Legacy Dashboard Routes */}
