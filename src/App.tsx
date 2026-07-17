@@ -23,6 +23,8 @@ import ManagerDashboard from "./pages/Manager/ManagerDashboard";
 import OfficerDashboard from "./pages/Officer/OfficerDashboard";
 import UserDashboard from "./pages/UserDashboard";
 import SubscriptionManagement from "./pages/SubscriptionManagement";
+import SubscriptionManagementAdmin from "./pages/Admin/SubscriptionManagementAdmin";
+import UserManagement from "./pages/Admin/UserManagement";
 import { Toaster } from "sonner";
 import RequestDetailsPage from "./pages/User/dashboard/components/RequestDetailsPage";
 import MyAssignedRequests from "./pages/User/dashboard/MyAssignedRequests";
@@ -47,6 +49,8 @@ function App() {
       {/* Admin Routes */}
       <Route element={<RequireAuth allowedRoles={["admin"]} />}>
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/users" element={<UserManagement />} />
+        <Route path="/admin/subscription-requests" element={<SubscriptionManagementAdmin />} />
       </Route>
 
       {/* Manager Routes */}

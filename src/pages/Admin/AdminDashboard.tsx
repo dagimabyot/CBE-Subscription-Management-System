@@ -79,7 +79,7 @@ const AdminDashboard = () => {
         )}
         {hasPermission("manage_subscriptions") && (
           <Button
-            onClick={() => navigate("/admin/subscriptions")}
+            onClick={() => navigate("/admin/subscription-requests")}
             variant="outline"
             className="h-12 justify-start text-left"
           >
