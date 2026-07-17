@@ -99,8 +99,23 @@ const RegistrationPage = () => {
         navigate("/verify-email", { state: { email: formData.email } });
       },
       onError: (err: any) => {
+        let errorMessage = "Registration failed. Please try again.";
+        
+        if (err instanceof Error) {
+          errorMessage = err.message;
+        } else if (typeof err === "string") {
+          errorMessage = err;
+        }
+        
+        // Check for specific network or server errors
+        if (errorMessage.includes("Network Error") || errorMessage.includes("unable to connect")) {
+          errorMessage = "Network connection failed. Please check your internet connection and try again.";
+        } else if (errorMessage.includes("Server error") || errorMessage.includes("500")) {
+          errorMessage = "Server error. Please try again later.";
+        }
+        
         setFieldErrors({
-          submit: err.message || "Registration failed. Please try again.",
+          submit: errorMessage,
         });
       },
     });
