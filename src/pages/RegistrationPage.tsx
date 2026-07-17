@@ -16,7 +16,7 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, Eye, EyeOff, User, Briefcase, Shield, AlertCircle } from "lucide-react";
 import { PasswordStrengthMeter } from "@/components/PasswordStrengthMeter";
 import { useRegister } from "@/hooks/useAuth";
-import { getValidationError, validateEmail, isStrongPassword } from "@/utils/validation";
+import { validateEmail, isStrongPassword } from "@/utils/validation";
 import logo from "@/assets/cbe-logo.jpg";
 
 const RegistrationPage = () => {
