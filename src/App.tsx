@@ -1,7 +1,5 @@
 // App.tsx
 import { Routes, Route } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import RegistrationPage from "./pages/RegistrationPage";
 import DashboardLayout from "./layouts/DashboardLayout";
 import RequestsPage from "./pages/RequestsPage";
 import BillsPage from "./pages/BillsPage";
@@ -28,11 +26,6 @@ function App() {
 
     
     <Routes>
-      <Route path="/" element={<LoginPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegistrationPage />} />
-      
-
       {/* Nested inside Dashboard */}<Route element={<RequireAuth allowedRoles={["manager"]} />}>
           <Route path="/dashboard" element={<DashboardLayout />}>
         <Route index element={<Dashboard />} />
