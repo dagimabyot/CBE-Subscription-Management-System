@@ -1,5 +1,5 @@
 // App.tsx
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import DashboardLayout from "./layouts/DashboardLayout";
 import RequestsPage from "./pages/RequestsPage";
 import BillsPage from "./pages/BillsPage";
@@ -26,6 +26,7 @@ function App() {
 
     
     <Routes>
+      <Route path="/" element={<Navigate to="/dashboard" replace />} />
       {/* Nested inside Dashboard */}<Route element={<RequireAuth allowedRoles={["manager"]} />}>
           <Route path="/dashboard" element={<DashboardLayout />}>
         <Route index element={<Dashboard />} />
