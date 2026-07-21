@@ -17,6 +17,13 @@ import MyApprovals from "./pages/User/dashboard/MyApprovals";
 import { Toaster } from "sonner";
 import RequestDetailsPage from "./pages/User/dashboard/components/RequestDetailsPage";
 import MyAssignedRequests from "./pages/User/dashboard/MyAssignedRequests";
+import ApprovalsPage from "./pages/ApprovalsPage";
+import PaymentsPage from "./pages/PaymentsPage";
+import ReportsPage from "./pages/ReportsPage";
+import ContractsPage from "./pages/ContractsPage";
+import DevicesPage from "./pages/DevicesPage";
+import AdminPage from "./pages/AdminPage";
+import SupportPage from "./pages/SupportPage";
 
 function App() {
   return (
@@ -46,7 +53,46 @@ function App() {
         <Route path="services" element={<ServicesPage />} />
         <Route path="notifications" element={<NotificationsPage />} />
 
-        {/*<Route path="notifications" element={<NotificationsPage />} /> */}
+        {/* Approvals & Authorizations */}
+        <Route path="approvals/pending" element={<ApprovalsPage />} />
+        <Route path="approvals/history" element={<ApprovalsPage />} />
+        <Route path="approvals/high-value" element={<ApprovalsPage />} />
+
+        {/* Contracts & Documentation */}
+        <Route path="contracts" element={<ContractsPage />} />
+        <Route path="agreements" element={<ContractsPage />} />
+        <Route path="templates" element={<ContractsPage />} />
+
+        {/* Payments */}
+        <Route path="payments/initiate" element={<PaymentsPage />} />
+        <Route path="payments/verify" element={<PaymentsPage />} />
+        <Route path="payments/processing" element={<PaymentsPage />} />
+        <Route path="payments/send" element={<PaymentsPage />} />
+        <Route path="payments/settlement" element={<PaymentsPage />} />
+        <Route path="payments/history" element={<PaymentsPage />} />
+
+        {/* Device & SIM Management */}
+        <Route path="devices/handover" element={<DevicesPage />} />
+        <Route path="devices/replacement" element={<DevicesPage />} />
+        <Route path="devices/sims" element={<DevicesPage />} />
+        <Route path="devices/decommissioned" element={<DevicesPage />} />
+
+        {/* Reports & Analytics */}
+        <Route path="reports/subscriptions" element={<ReportsPage />} />
+        <Route path="reports/payments" element={<ReportsPage />} />
+        <Route path="reports/billing" element={<ReportsPage />} />
+        <Route path="reports/distribution" element={<ReportsPage />} />
+
+        {/* Administration */}
+        <Route path="admin/users" element={<AdminPage />} />
+        <Route path="admin/workflow" element={<AdminPage />} />
+        <Route path="admin/settings" element={<AdminPage />} />
+        <Route path="admin/guidelines" element={<AdminPage />} />
+
+        {/* Support */}
+        <Route path="support/help" element={<SupportPage />} />
+        <Route path="support/contact" element={<SupportPage />} />
+        <Route path="support/logs" element={<SupportPage />} />
       </Route>
       
     </Routes></>
