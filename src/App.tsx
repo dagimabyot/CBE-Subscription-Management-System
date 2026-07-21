@@ -17,7 +17,6 @@ import MyApprovals from "./pages/User/dashboard/MyApprovals";
 import { Toaster } from "sonner";
 import RequestDetailsPage from "./pages/User/dashboard/components/RequestDetailsPage";
 import MyAssignedRequests from "./pages/User/dashboard/MyAssignedRequests";
-import RequireAuth from "./features/auth/RequireAuth";
 
 function App() {
   return (
@@ -27,8 +26,7 @@ function App() {
     
     <Routes>
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
-      {/* Nested inside Dashboard */}<Route element={<RequireAuth allowedRoles={["manager"]} />}>
-          <Route path="/dashboard" element={<DashboardLayout />}>
+      <Route path="/dashboard" element={<DashboardLayout />}>
         <Route index element={<Dashboard />} />
         <Route path="requests" element={<RequestsPage />} />
         <Route path="user/dashboard" element={<DashboardUser/>} />
@@ -50,7 +48,6 @@ function App() {
 
         {/*<Route path="notifications" element={<NotificationsPage />} /> */}
       </Route>
-        </Route>
       
     </Routes></>
   
