@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import {
   FileText,
   Users,
@@ -11,8 +11,9 @@ import {
   BarChart2,
   ChevronDown,
   ChevronRight,
+  Zap,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -20,7 +21,6 @@ import {
   SidebarHeader,
   SidebarRail,
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -28,6 +28,7 @@ import {
 import { NavUser } from "@/components/nav-user";
 import clsx from "clsx";
 import { useAuthUser } from "@/hooks/useAuthUser";
+
 interface MenuItem {
   title: string;
   url?: string;
@@ -42,18 +43,15 @@ const menuItems: MenuItem[] = [
     icon: FileText,
     children: [
       { title: "New Service Request", url: "/dashboard/requests" },
-      {
-        title: "Upgrade/Downgrade Service",
-        url: "/dashboard/upgrade-downgrade",
-      },
+      { title: "Upgrade/Downgrade Service", url: "/dashboard/upgrade-downgrade" },
       { title: "Terminate Service", url: "/dashboard/requests/terminate" },
       { title: "Services", url: "/dashboard/services" },
       { title: "Request History", url: "/requests/history" },
-      { title: "my requests", url: "/dashboard/user/myrequest" },
+      { title: "My Requests", url: "/dashboard/user/myrequest" },
       { title: "My Subscriptions", url: "/dashboard/user/my-subs" },
-      { title: "Bulk import", url: "/dashboard/bulk-import" },
+      { title: "Bulk Import", url: "/dashboard/bulk-import" },
       { title: "My Approvals", url: "/dashboard/my-approvals" },
-      { title: "Assigned To Me", url: "/dashboard/my-assigned" },
+      { title: "Assigned to Me", url: "/dashboard/my-assigned" },
     ],
   },
   {
@@ -62,10 +60,7 @@ const menuItems: MenuItem[] = [
     children: [
       { title: "My Pending Approvals", url: "/approvals/pending" },
       { title: "Approval History", url: "/approvals/history" },
-      {
-        title: "High-Value Payment Authorizations",
-        url: "/approvals/high-value",
-      },
+      { title: "High-Value Payment Authorizations", url: "/approvals/high-value" },
     ],
   },
   {
@@ -133,7 +128,21 @@ const menuItems: MenuItem[] = [
 export function AppSidebar() {
   const [openMenus, setOpenMenus] = useState<string[]>([]);
   const { user } = useAuthUser();
-  console.log( user);
+  const location = useLocation();
+
+  // Auto-open menu items based on current route
+  useEffect(() => {
+    menuItems.forEach((item) => {
+      if (item.children) {
+        const hasActiveChild = item.children.some((child) =>
+          location.pathname.includes(child.url || "")
+        );
+        if (hasActiveChild && !openMenus.includes(item.title)) {
+          setOpenMenus((prev) => [...prev, item.title]);
+        }
+      }
+    });
+  }, [location.pathname]);
 
   const toggleMenu = (title: string) => {
     setOpenMenus((prev) =>
@@ -142,87 +151,108 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar collapsible="icon" className="bg-background border-r">
+    <Sidebar collapsible="icon" className="bg-gradient-to-b from-slate-900 to-slate-800 border-r border-slate-700">
       {/* HEADER */}
-      <SidebarHeader className="px-4 py-3 border-b flex items-center gap-3">
-        <span className="text-sm font-semibold tracking-tight">CBE</span>
+      <SidebarHeader className="px-4 py-4 border-b border-slate-700 bg-slate-900/50">
+        <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500">
+            <Zap size={18} className="text-white" />
+          </div>
+          <span className="text-base font-bold text-white tracking-tight">CBE</span>
+          <span className="text-xs text-slate-400 ml-1">Management</span>
+        </div>
       </SidebarHeader>
 
       {/* CONTENT */}
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            Navigation
-          </SidebarGroupLabel>
+      <SidebarContent className="px-2 py-4">
+        <SidebarGroup className="space-y-1">
           <SidebarMenu>
             {menuItems.map((item) => {
               const isOpen = openMenus.includes(item.title);
+              const hasActiveChild = item.children?.some((child) =>
+                location.pathname.includes(child.url || "")
+              );
+
               return (
-                <div key={item.title}>
+                <div key={item.title} className="space-y-0.5">
                   <SidebarMenuItem>
                     <SidebarMenuButton
-                      asChild
-                      tooltip={item.title}
+                      asChild={item.url && !item.children ? true : false}
                       onClick={() => item.children && toggleMenu(item.title)}
                       className={clsx(
-                        "group flex items-center px-3 py-6 text-sm font-medium rounded-lg transition-colors",
-                        item.url
-                          ? "bg-blue-50 text-blue-600 border-r-2 border-blue-600"
-                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                        "relative group flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 overflow-hidden",
+                        item.url && !item.children
+                          ? "text-slate-300 hover:text-white hover:bg-slate-700"
+                          : item.children
+                          ? clsx(
+                              "text-slate-300 hover:text-white cursor-pointer",
+                              hasActiveChild && "bg-slate-700 text-white"
+                            )
+                          : "text-slate-300 hover:text-white hover:bg-slate-700"
                       )}
                     >
-                      <div className="flex items-center gap-2 w-full">
-                        {item.icon && <item.icon size={18} />}
-                        {item.url ? (
-                          <NavLink
-                            to={item.url}
-                            className={({ isActive }) =>
-                              clsx(
-                                "flex-1",
-                                isActive
-                                  ? "text-primary font-semibold"
-                                  : "text-muted-foreground"
-                              )
-                            }
-                          >
-                            {item.title}
-                          </NavLink>
-                        ) : (
-                          <span className="flex-1">{item.title}</span>
-                        )}
-                        {item.children &&
-                          (isOpen ? (
-                            <ChevronDown size={16} />
-                          ) : (
-                            <ChevronRight size={16} />
-                          ))}
-                      </div>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-
-                  {item.children && (
-                    <div
-                      className={clsx(
-                        "ml-6 overflow-hidden transition-all duration-300 ease-in-out",
-                        isOpen ? "max-h-screen" : "max-h-0"
-                      )}
-                    >
-                      {item.children.map((child) => (
+                      {item.url && !item.children ? (
                         <NavLink
-                          key={child.title}
-                          to={child.url || "#"}
+                          to={item.url}
                           className={({ isActive }) =>
                             clsx(
-                              "block py-1.5 pl-6 pr-3 text-sm rounded-md transition-colors duration-200",
-                              isActive
-                                ? "bg-primary/10 text-primary font-medium"
-                                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                              "flex items-center gap-3 w-full",
+                              isActive && "text-white"
                             )
                           }
                         >
-                          {child.title}
+                          {item.icon && (
+                            <item.icon size={20} className="flex-shrink-0" />
+                          )}
+                          <span>{item.title}</span>
                         </NavLink>
-                      ))}
+                      ) : (
+                        <div className="flex items-center gap-3 w-full">
+                          {item.icon && (
+                            <item.icon size={20} className="flex-shrink-0" />
+                          )}
+                          <span className="flex-1">{item.title}</span>
+                          {item.children && (
+                            <div
+                              className={clsx(
+                                "transition-transform duration-300",
+                                isOpen && "rotate-180"
+                              )}
+                            >
+                              <ChevronDown size={16} />
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+
+                  {/* SUBMENU */}
+                  {item.children && (
+                    <div
+                      className={clsx(
+                        "overflow-hidden transition-all duration-300 ease-in-out",
+                        isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                      )}
+                    >
+                      <div className="pl-3 pr-2 py-1 space-y-1 border-l border-slate-700 ml-2">
+                        {item.children.map((child) => (
+                          <NavLink
+                            key={child.title}
+                            to={child.url || "#"}
+                            className={({ isActive }) =>
+                              clsx(
+                                "block px-3 py-2 text-xs font-medium rounded-md transition-all duration-200",
+                                isActive
+                                  ? "bg-blue-600 text-white shadow-lg shadow-blue-500/20"
+                                  : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50"
+                              )
+                            }
+                          >
+                            {child.title}
+                          </NavLink>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>
@@ -233,11 +263,11 @@ export function AppSidebar() {
       </SidebarContent>
 
       {/* FOOTER */}
-      <SidebarFooter>
+      <SidebarFooter className="px-2 py-3 border-t border-slate-700">
         <NavUser
           user={{
-            name: user ? `${user.firstName} ${user.lastName}` : "Guest",
-            email: user ? user.email : "",
+            name: user ? `${user.firstName} ${user.lastName}` : "Guest User",
+            email: user ? user.email : "user@ethiotelecom.et",
             avatar: "/avatar.jpg",
           }}
         />
